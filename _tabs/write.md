@@ -92,6 +92,7 @@ order: 2
     border-radius: 8px;
     background: #ffffff;
     color: #111111;
+    -webkit-text-security: none;
   }
   .write-actions {
     display: flex;
