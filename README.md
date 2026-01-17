@@ -37,6 +37,21 @@ This repository is automatically updated with new releases from the theme reposi
 
 This work is published under [MIT][mit] License.
 
+## Writing Posts (Quick Start)
+
+- Create a new file under `_posts/` with filename format `YYYY-MM-DD-your-title.md`.
+- You can copy `POST_TEMPLATE.md` as a starting point and fill in `title`, `date`, `tags`, etc.
+- For drafts, use the `_drafts/` folder (no date prefix required).
+- Preview locally (requires Ruby + Jekyll):
+
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+- Or let GitHub Pages build the site automatically after you push to `main`.
+
+
 [gem]: https://rubygems.org/gems/jekyll-theme-chirpy
 [chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
 [CD]: https://en.wikipedia.org/wiki/Continuous_deployment
