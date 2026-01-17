@@ -165,6 +165,16 @@ select {
   color: #ffffff;
 }
 
+.site-footer .powered-by {
+  display: none;
+}
+
+.footer-custom {
+  margin-top: 0.4rem;
+  color: var(--t-muted);
+  font-size: 0.95rem;
+}
+
 .tag,
 .badge,
 .post-tag {
