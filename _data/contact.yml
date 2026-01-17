@@ -13,6 +13,11 @@
 - type: rss
   icon: "fas fa-rss"
   noblank: true
+# GitHub Sponsors link
+- type: external
+  icon: "fas fa-heart"
+  url: "https://github.com/sponsors/kimheetae0104"
+  title: "Sponsor"
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon
