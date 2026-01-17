@@ -32,6 +32,16 @@ order: 2
     <span>Body</span>
     <textarea id="post-body" rows="10" placeholder="Write your post..."></textarea>
   </label>
+  <div class="write-field">
+    <span>Image</span>
+    <input id="post-image" type="file" accept="image/*" />
+    <input id="post-image-alt" type="text" placeholder="Alt text (optional)" />
+    <div class="write-actions">
+      <button id="post-image-insert" type="button">Insert Image Markdown</button>
+      <button id="post-image-download" type="button">Download Image</button>
+    </div>
+    <p class="write-hint">Suggested path: <code>/assets/img/posts/YYYY-MM-DD/filename</code></p>
+  </div>
   <div class="write-actions">
     <button id="post-download" type="button">Download Markdown</button>
     <button id="post-copy" type="button">Copy to Clipboard</button>
@@ -86,6 +96,11 @@ order: 2
     min-height: 1.2rem;
     color: #444444;
   }
+  .write-hint {
+    margin: 0.4rem 0 0;
+    color: #666666;
+    font-size: 0.9rem;
+  }
 </style>
 
 <script>
@@ -98,6 +113,10 @@ order: 2
   const downloadButton = document.getElementById("post-download");
   const copyButton = document.getElementById("post-copy");
   const statusLine = document.getElementById("post-status");
+  const imageInput = document.getElementById("post-image");
+  const imageAltInput = document.getElementById("post-image-alt");
+  const imageInsertButton = document.getElementById("post-image-insert");
+  const imageDownloadButton = document.getElementById("post-image-download");
 
   const today = new Date().toISOString().slice(0, 10);
   dateInput.value = today;
@@ -143,6 +162,12 @@ order: 2
     return { frontMatter, filename: `${date}-${slug}.md` };
   };
 
+  const getImagePath = (file, date) => {
+    if (!file) return "";
+    const safeName = file.name.replace(/\s+/g, "-");
+    return `/assets/img/posts/${date}/${safeName}`;
+  };
+
   titleInput.addEventListener("input", () => {
     if (!slugInput.value.trim()) {
       slugInput.value = slugify(titleInput.value);
@@ -168,5 +193,36 @@ order: 2
     } catch (error) {
       statusLine.textContent = "Copy failed. Please use Download instead.";
     }
+  });
+
+  imageInsertButton.addEventListener("click", () => {
+    const file = imageInput.files && imageInput.files[0];
+    if (!file) {
+      statusLine.textContent = "Select an image first.";
+      return;
+    }
+    const date = dateInput.value || today;
+    const imagePath = getImagePath(file, date);
+    const altText = imageAltInput.value.trim();
+    const markdown = `![${altText}](${imagePath})`;
+    bodyInput.value = `${bodyInput.value.trim()}\n\n${markdown}\n`;
+    statusLine.textContent = `Inserted image markdown: ${imagePath}`;
+  });
+
+  imageDownloadButton.addEventListener("click", () => {
+    const file = imageInput.files && imageInput.files[0];
+    if (!file) {
+      statusLine.textContent = "Select an image first.";
+      return;
+    }
+    const date = dateInput.value || today;
+    const safeName = file.name.replace(/\s+/g, "-");
+    const suggestedName = `${date}-${safeName}`;
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(file);
+    link.download = suggestedName;
+    link.click();
+    URL.revokeObjectURL(link.href);
+    statusLine.textContent = `Downloaded image as ${suggestedName}.`;
   });
 </script>
