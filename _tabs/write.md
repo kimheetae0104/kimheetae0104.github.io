@@ -72,9 +72,10 @@ order: 2
   .write-card {
     margin-top: 1.5rem;
     padding: 1.5rem;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--t-border, #e0e0e0);
     border-radius: 12px;
-    background: linear-gradient(135deg, #f8f6f2 0%, #ffffff 60%);
+    background: var(--t-card, #ffffff);
+    box-shadow: var(--t-shadow, none);
   }
   .write-field {
     display: flex;
@@ -88,7 +89,7 @@ order: 2
   .write-field input,
   .write-field textarea {
     padding: 0.6rem 0.8rem;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--t-border, #e0e0e0);
     border-radius: 8px;
     background: #ffffff;
     color: #111111;
@@ -103,20 +104,22 @@ order: 2
   .write-actions button {
     padding: 0.55rem 1.2rem;
     border-radius: 999px;
-    border: 1px solid #111111;
-    background: #111111;
+    border: 1px solid var(--t-accent, #111111);
+    background: var(--t-accent, #111111);
     color: #ffffff;
     cursor: pointer;
   }
   .write-actions button#post-copy {
     background: #ffffff;
-    color: #111111;
+    color: var(--t-ink, #111111);
+    border: 1px solid var(--t-border, #e0e0e0);
   }
   .write-actions button#post-clear,
   .write-actions button#post-clear-draft,
   .write-actions button#post-image-download {
     background: #ffffff;
-    color: #111111;
+    color: var(--t-ink, #111111);
+    border: 1px solid var(--t-border, #e0e0e0);
   }
   .write-meta {
     display: flex;
@@ -128,7 +131,7 @@ order: 2
   .write-preview {
     margin-top: 1.2rem;
     padding: 1rem;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--t-border, #e0e0e0);
     border-radius: 12px;
     background: #ffffff;
   }
@@ -150,7 +153,7 @@ order: 2
     margin: 0 0 0.75rem;
     padding: 0.75rem;
     border-radius: 8px;
-    background: #f4f4f4;
+    background: #f4f2ed;
     white-space: pre-wrap;
   }
   .write-preview-body img {
@@ -161,7 +164,7 @@ order: 2
     margin-top: 0.5rem;
     max-width: 220px;
     border-radius: 8px;
-    border: 1px solid var(--border-color, #e0e0e0);
+    border: 1px solid var(--t-border, #e0e0e0);
     display: none;
   }
   .write-status {
