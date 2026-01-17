@@ -5,11 +5,13 @@ set -euo pipefail
 template=false
 body=""
 body_file=""
+preset=""
 
 usage() {
   echo "Usage: tools/new-post.sh [options] \"Title\" [slug] [date]"
   echo
   echo "Options:"
+  echo "  -p, --preset NAME        Apply preset for categories/tags (general, frontend, backend, data)."
   echo "  -t, --template           Use body from POST_TEMPLATE.md (after front matter)."
   echo "  -b, --body TEXT          Inline body content."
   echo "  -B, --body-file PATH     Read body content from file."
@@ -21,6 +23,10 @@ while [[ $# -gt 0 ]]; do
     -t | --template)
       template=true
       shift
+      ;;
+    -p | --preset)
+      preset="${2:-}"
+      shift 2
       ;;
     -b | --body)
       body="${2:-}"
@@ -73,8 +79,41 @@ fi
 read -r -p "Categories (comma separated, default: blog): " categories
 read -r -p "Tags (comma separated, optional): " tags
 
+default_categories="blog"
+default_tags=""
+
+if [[ -n "$preset" ]]; then
+  case "$preset" in
+    general)
+      default_categories="blog"
+      default_tags="tech"
+      ;;
+    frontend)
+      default_categories="dev, frontend"
+      default_tags="frontend, ui"
+      ;;
+    backend)
+      default_categories="dev, backend"
+      default_tags="backend, api"
+      ;;
+    data)
+      default_categories="dev, data"
+      default_tags="data, analytics"
+      ;;
+    *)
+      echo "Unknown preset: $preset"
+      echo "Available presets: general, frontend, backend, data"
+      exit 1
+      ;;
+  esac
+fi
+
 if [[ -z "$categories" ]]; then
-  categories="blog"
+  categories="$default_categories"
+fi
+
+if [[ -z "$tags" ]]; then
+  tags="$default_tags"
 fi
 
 categories_list="$(printf '%s' "$categories" | sed -E 's/ *, */, /g')"

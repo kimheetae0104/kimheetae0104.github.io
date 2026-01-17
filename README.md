@@ -44,6 +44,7 @@ This work is published under [MIT][mit] License.
 - For drafts, use the `_drafts/` folder (no date prefix required).
 - Local helper: `tools/new-post.sh "Title" [slug] [date]` creates a ready-to-edit post file.
 - Template options: `-t` uses the body from `POST_TEMPLATE.md`, `-b` sets inline body text, `-B` loads body from a file.
+- Presets: `-p general|frontend|backend|data` applies default categories/tags.
 - Web helper: open the `Write` tab in the site to download a ready-to-upload Markdown file.
 - Preview locally (requires Ruby + Jekyll):
 
