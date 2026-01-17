@@ -2,3 +2,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ '/assets/css/tistory.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      registrations.forEach((registration) => registration.unregister());
+    });
+    if (window.caches && window.caches.keys) {
+      window.caches.keys().then((keys) => {
+        keys.forEach((key) => window.caches.delete(key));
+      });
+    }
+  }
+</script>
